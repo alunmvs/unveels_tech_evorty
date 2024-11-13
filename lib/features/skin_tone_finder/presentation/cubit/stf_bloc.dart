@@ -95,7 +95,7 @@ class StfBloc extends Bloc<StfEvent, StfState> {
       print(productData);
       List<String> listHexa = productData.items
           .map((product) {
-            // Filter untuk mendapatkan nilai hexacode
+            // Filter untuk mendapatkan nilai hexacodes
             final hexacodeAttribute = product.customAttributes.firstWhere(
               (attribute) => attribute.attributeCode == 'hexacode',
             );
