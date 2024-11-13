@@ -83,9 +83,9 @@ class _SALivePageState extends State<SALivePage> {
         );
 
       case LiveStep.scannedFace:
-        if (_isShowFullAnalysisResults) {
-          return const SAFullAnalysisResultsWidget();
-        }
+        // if (_isShowFullAnalysisResults) {
+        //   return const SAFullAnalysisResultsWidget();
+        // }
 
         if (_isShowAnalysisResults) {
           return const BottomCopyrightWidget(
@@ -138,14 +138,14 @@ class _SALivePageState extends State<SALivePage> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SAAnalysisResultsWidget(
-                  onViewAll: () {
-                    // close this dialog
-                    context.pop();
+                // SAAnalysisResultsWidget(
+                //   onViewAll: () {
+                //     // close this dialog
+                //     context.pop();
 
-                    _onViewAllProducts();
-                  },
-                ),
+                //     _onViewAllProducts();
+                //   },
+                // ),
               ],
             ),
           ),

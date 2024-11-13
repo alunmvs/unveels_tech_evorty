@@ -5,8 +5,18 @@ import '../../../../shared/configs/asset_path.dart';
 import '../../../../shared/widgets/buttons/button_widget.dart';
 
 class SAProductItemWidget extends StatelessWidget {
+  final String productName;
+  final String brandName;
+  final String price;
+  final String originalPrice;
+  final String imagePath;
   const SAProductItemWidget({
     super.key,
+    required this.productName,
+    required this.brandName,
+    required this.price,
+    required this.originalPrice,
+    required this.imagePath,
   });
 
   @override
@@ -18,11 +28,27 @@ class SAProductItemWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            ImagePath.productExample,
-            width: 130,
-            height: 130 * 0.65,
+          Image.network(
+            width: 115,
+            height: 120 * 0.65,
             fit: BoxFit.cover,
+            'https://magento-1231949-4398885.cloudwaysapps.com/media/catalog/product/${imagePath}',
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent? loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
+              );
+            },
+            errorBuilder: (BuildContext context, Object exception,
+                StackTrace? stackTrace) {
+              return Text('Failed to load image');
+            },
           ),
           const SizedBox(
             height: 3,
@@ -34,7 +60,7 @@ class SAProductItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Item name Tom Ford",
+                      productName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.lora(
@@ -44,7 +70,7 @@ class SAProductItemWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Brand name",
+                      brandName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.lora(
@@ -56,7 +82,7 @@ class SAProductItemWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                "\$15",
+                "\$$originalPrice",
                 style: GoogleFonts.lora(
                   fontSize: 8,
                   fontWeight: FontWeight.w500,
